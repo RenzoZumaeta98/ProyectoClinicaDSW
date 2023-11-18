@@ -1,0 +1,83 @@
+﻿@model UsuarioViewModel
+@{
+    ViewData["Title"] = "PaginaUsuario";
+}
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light  mb-5">
+    <a class="navbar-brand" href="#"><img src="../images/Logo.png" style="width: 130px" /></a>
+    
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="#">Nosotros</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="#">Especialidades</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="#">Doctores</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="#">Ayuda</a>
+            </li>
+        </ul>
+        <button class="btn btn-secondary my-2 my-sm-0 m-1">@Model.NombreUsuario @Model.ApellidoUsuario</button>
+        <i class="fa-solid fa-user m-2" style="font-size:37px"></i>
+    </div>
+</nav>
+
+<div class="row p-3">
+    <div class="col-12">
+        <div class="row">
+            <div class="col-6 p-1" style="border: 1px solid black">
+                <div class="row m-2" style="width:500px; height:400px">
+                    <div class="col-md-6 align-self-center">
+                        <h2>Hola, @Model.NombreUsuario ¿Qué quieres hacer hoy?</h2>
+                    </div>
+                    <div class="col-md-6 align-self-center">
+                        <img src="~/images/imagenbanner1.png" style="width:220px" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-6" style="border: 1px solid black">
+                <div class="row">
+                    <div class="col-md-12 p-4" style="width:500px; height:100px; border: 1px solid black">
+                        <form method="post" asp-controller="Cita" asp-action="AgendarCita">
+                            <input type="hidden" asp-for="IdUsuario" value="@Model.IdUsuario">
+                            <button class="btn btn-primary btn-lg disabled" type="submit">Agendar Cita</button>
+                            <i class="fa-solid fa-hospital-user m-2" style="font-size: 30px"></i>
+                        </form>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 p-4" style="width:500px; height:100px; border: 1px solid black">
+                        <form method="post" asp-controller="Cita" asp-action="ListarCitas">
+                            <input type="hidden" asp-for="IdUsuario" value="@Model.IdUsuario">
+                            <button class="btn btn-primary btn-lg disabled" type="submit">Historial de Citas</button>
+                            <i class="fa-solid fa-notes-medical m-2" style="font-size: 30px"></i>
+                        </form>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 p-4" style="width:500px; height:100px; border: 1px solid black">
+                        <form method="post" asp-controller="Cita" asp-action="">
+                            <input type="hidden" asp-for="IdUsuario" value="@Model.IdUsuario">
+                            <button class="btn btn-primary btn-lg disabled" type="submit">Mis Doctores</button>
+                            <i class="fa-solid fa-user-doctor m-2" style="font-size: 30px"></i>
+                        </form>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 p-4" style="width:500px; height:100px; border: 1px solid black">
+                        <form method="post" asp-controller="Cita" asp-action="">
+                            <input type="hidden" asp-for="IdUsuario" value="@Model.IdUsuario">
+                            <button class="btn btn-primary btn-lg disabled" type="submit">Editar Perfil</button>
+                            <i class="fa-solid fa-pen m-2" style="font-size: 30px"></i>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,17 @@
+﻿@model UsuarioViewModel
+@{
+    ViewData["Title"] = "CitaReservada";
+}
+
+<h1>Cita Reservada con EXITO</h1>
+<h2>Vuelve al inicio, @Model.NombreUsuario</h2>
+<input asp-controller="Login" asp-action="PaginaUsuario" required type="button" class="form-control">
+<form method="post" asp-controller="Login" asp-action="PaginaUsuario">
+    <input type="hidden" asp-for="IdUsuario" value="@Model.IdUsuario">
+    <input type="hidden" asp-for="CorreoUsuario" value="@Model.CorreoUsuario">
+    <input type="hidden" asp-for="ClaveUsuario" value="@Model.ClaveUsuario">
+
+    <button class="btn btn-primary btn-lg disabled" type="submit">Volver a Página principal</button>
+</form>
+
+    

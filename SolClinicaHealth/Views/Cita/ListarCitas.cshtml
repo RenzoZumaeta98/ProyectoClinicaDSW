@@ -1,0 +1,78 @@
+﻿@model List<CitaViewModel>
+@{
+    ViewData["Title"] = "ListarCitas";
+}
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light  mb-5">
+    <a class="navbar-brand" href="#"><img src="../images/Logo.png" style="width: 130px" /></a>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="#">Nosotros</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="#">Especialidades</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="#">Doctores</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="#">Ayuda</a>
+            </li>
+        </ul>
+        <button class="btn btn-secondary my-2 my-sm-0 m-1">Cerrar Sesión</button>
+        <i class="fa-solid fa-user m-2" style="font-size:37px"></i>
+    </div>
+</nav>
+
+<h1>Historial de Citas</h1>
+
+ @foreach (var cita in Model)
+    {
+    <div class="row mt-5">
+   
+        
+            <div class="col-12">
+                <div class="row" style="border:1px solid black">
+                    <div class="col-4 m-3">
+                        <h4>Cita Médica</h4>
+                    </div>
+                    <div class="col-3 m-3" >
+                        <h5>Estado: @cita.EstadoCita</h5>
+                    </div>
+                    <div class="col-3 m-3">
+                        <h5>Fecha de Cita: @cita.FechaCita.Substring(0, 8)</h5>
+                    </div>
+                </div>
+
+                <div class="row pt-2 pb-2" style="border:1px solid black">
+
+                    <div class="col-9">
+                        <p>Hora Programada: @cita.HoraCita</p>
+                        <p>Doctor: @cita.idDoctor</p>
+                        <p>Especialidad: @cita.idEspecialidad</p>
+                    </div>
+
+                    <div class="col-3">
+                       
+                        <div class="row">
+                            <a asp-action="PagarCita" asp-controller="Cita" asp-route-id="@cita.IdCita" class="btn btn-primary m-1" style="width:200px">Pagar Cita</a>
+                        </div>
+                        <div class="row">
+                            <a asp-action="AplazarCita" asp-controller="Cita" asp-route-id="@cita.IdCita" class="btn btn-primary m-1" style="width:200px">Aplazar Cita</a>
+                        </div>
+                        <div class="row">
+                            <a asp-action="CancelarCita" asp-controller="Cita" asp-route-id="@cita.IdCita" class="btn btn-primary m-1" style="width:200px">Cancelar Cita</a>
+                        </div>
+                        <div class="row">
+                            <a asp-action="ValorarCita" asp-controller="Cita" asp-route-id="@cita.IdCita" class="btn btn-primary m-1" style="width:200px">Valorar Cita</a>
+                        </div>
+                       
+                    </div>
+
+                </div>
+            </div>
+</div>
+
+}

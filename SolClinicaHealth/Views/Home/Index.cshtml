@@ -1,0 +1,251 @@
+﻿@model UsuarioViewModel
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light  mb-5">
+    <a class="navbar-brand" href="#"><img src="../images/Logo.png" style="width: 130px" /></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="#">Nosotros</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="#">Especialidades</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="#">Doctores</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="#">Ayuda</a>
+            </li>
+        </ul>
+        <button class="btn btn-secondary my-2 my-sm-0 m-1" type="button" data-toggle="modal" data-target="#RegistrarModal">Registrarse</button>
+        <button class="btn btn-light my-2 my-sm-0 m-1 border-dark" type="button" data-toggle="modal" data-target="#IngresarModal">Iniciar Sesion</button>
+    </div>
+</nav>
+
+<div class="row p-3">
+    <div class="col-12">
+        <div class="row">
+            <div class="col-3 p-1" style="border: 1px solid black;  border-radius:25px">
+                <div class="row m-2">
+                    <div class="col-md-12 align-self-center">
+                        <h2>¿Cómo te podemos ayudar hoy?</h2>
+                    </div>
+                </div>
+                <div class="row m-3">
+                    <div col-md-12>
+                        <img src="~/images/imagenbanner1.png" style="width:180px" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-8 m-sm-auto">
+                <div class="row">
+                    <div class="col-4">
+                        <div style="width:200px;height:140px; border: 1px solid black;  border-radius:25px">
+                            <a class="m-2" href="#">Agenda tu cita</a><i class="fa-solid fa-list-check m-3" style="font-size: 25px"></i>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div style="width:200px;height:140px; border: 1px solid black;  border-radius:25px">
+                            <a class="m-2" href="#">Ver Médicos</a><i class="fa-solid fa-user-doctor m-3" style="font-size: 25px"></i>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div style="width:220px;height:140px; border: 1px solid black;  border-radius:25px">
+                            <a class="m-2" href="#">Ver Especialidades</a><i class="fa-solid fa-briefcase-medical m-3" style="font-size: 25px"></i>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row p-3 mt-5 mb-5 align-items-center" style="border: 1px solid black; border-radius:25px">
+    <div class="col-md-4">
+        <h2>Encuentranos muy cerca de ti</h2>
+    </div>
+    <div class="col-md-7">
+        <a><img src="../images/mapaclinica.png" style="width:500px"/></a>
+    </div>
+</div>
+
+
+@* //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// *@
+
+<div class="modal fade" id="RegistrarModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-lg">
+		<form method="post" asp-controller="Usuario" asp-action="RegistrarUsuario">
+			
+			<input type="hidden" asp-for="TipoUsuario" value="1">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h1 class="modal-title fs-5" id="exampleModalLabel">Registro</h1>
+					<button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+				</div>
+
+				<div class="form-group text-center m-2">
+					<img src="~/images/logoangelashealth.png" alt="140" width="340" />
+				</div>
+
+
+				<div class="modal-body">
+
+
+
+					<div class="row">
+
+						<div class="col">
+
+							<label asp-for="NombreUsuario">Nombre</label>
+							<input type="text" asp-for="NombreUsuario" required class="form-control">
+						</div>
+						<div class="col">
+							<label asp-for="CorreoUsuario">Correo</label>
+							<input placeholder="demo@demo.com" asp-for="CorreoUsuario" required type="text" class="form-control">
+						</div>
+						<div class="col">
+
+							<label asp-for="DireccionUsuario">Direccion</label>
+							<input type="text" asp-for="DireccionUsuario" required class="form-control">
+						</div>		
+
+					</div>
+
+					<div class="row mt-3">
+
+						<div class="col">
+							<label asp-for="ApellidoUsuario">Apellido</label>
+							<input type="text" asp-for="ApellidoUsuario" required class="form-control">
+						</div>
+
+						<div class="col">
+
+							<label asp-for="CelularUsuario">Celular</label>
+							<input  type="text" asp-for="CelularUsuario" required class="form-control">
+						</div>
+
+						<div class="col">
+
+							<label asp-for="FechaNacUsuario">Fecha de Nacimiento  </label>
+							<input placeholder="dd/mm/yyyy" asp-for="FechaNacUsuario" required type="date" class="form-control" id="fecha" style="width:270px">
+
+						
+						</div>
+						
+
+					</div>
+
+					<div class="row mt-3">
+
+						<div class="col">
+
+							<label asp-for="TipoDocumento">Documento</label>
+							<select asp-for="TipoDocumento" style="width:240px; height:40px">
+								<option value="" disabled selected>Seleccione documento...</option>
+								<option value="1">DNI</option>
+								<option value="2">Carne Extranjeria</option>
+								<option value="3">Pasaporte</option>
+							</select>
+							<input placeholder="Numero Documento" asp-for="NroDocumentoUsuario" required type="text" class="form-control mt-3">
+						</div>
+
+						<div class="col">
+							<label asp-for="GeneroUsuario">Genero</label>
+							<select asp-for="GeneroUsuario" style="width:240px; height:40px">
+								<option value="" disabled selected>Seleccione genero...</option>
+								<option value="F">Femenino</option>
+								<option value="M">Masculino</option>
+							</select>
+						</div>
+
+						<div class="col">
+							<label asp-for="ClaveUsuario">Clave</label>
+							<input asp-for="ClaveUsuario" required type="password" class="form-control">
+						</div>
+						
+
+					</div>
+
+
+					<div class="row mt-3">
+
+						
+
+					</div>
+
+				</div>
+
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+					<input type="submit" class="btn btn-primary" value="Registrar">
+				</div>
+
+			</div>
+		</form>
+	</div>
+</div>
+
+
+@* ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////// *@
+<div class="modal fade" id="IngresarModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			
+			<div class="modal-body">
+				<form method="post" asp-controller="Login" asp-action="PaginaUsuario">
+					<div class="form-group text-center">
+						<h3>LOGIN</h3>
+                        <img src="../images/logoangelashealth.png" width="240" />
+						<br>
+						<label>Bienvenido al sistema</label>
+					</div>
+					<br>
+					<div class="mb-3">
+						<label asp-for="CorreoUsuario">Correo</label>
+						<input placeholder="demo@demo.com" asp-for="CorreoUsuario" required type="text" class="form-control">
+						<div id="emailHelp" class="form-text">Nunca compartiremos tu email con nadie más.</div>
+					</div>
+					<div class="mb-3">
+						<label asp-for="ClaveUsuario">Clave</label>
+						<input asp-for="ClaveUsuario" required type="password" class="form-control">
+					</div>
+					<button type="submit" class="btn btn-danger">Ingresar</button>
+					<button type="button" class="btn btn-danger" data-toggle="modal" data-target="">Olvide mi contraseña</button>
+				</form>
+			</div>
+			<div class="modal-footer">
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+@section Scripts{
+
+    <script>
+        $(document).ready(function () {
+
+            var currentDate = new Date();
+
+
+            $('#fecha').datepicker({
+                format: 'yyyy-mm-dd',
+                autoclose: true,
+                language: 'es'
+            });
+        });
+    </script>
+
+}
+
+
+
+
