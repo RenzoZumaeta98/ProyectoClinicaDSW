@@ -1,9 +1,12 @@
 ﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SolClinicaHealth.DataAccess;
+using SolECommerce.CustomExtensions;
 using SolClinicaHealth.DataAccess.Entities;
 using SolClinicaHealth.Models;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace SolClinicaHealth.Controllers
@@ -25,8 +28,27 @@ namespace SolClinicaHealth.Controllers
         {
 			var usuarioIngreso = _context.Usuario.Where(c => c.CorreoUsuario == usuarioViewModel.CorreoUsuario && c.ClaveUsuario == usuarioViewModel.ClaveUsuario).Single();
 			var usuarioInView = _mapper.Map<UsuarioViewModel>(usuarioIngreso) ;
-			return View(usuarioInView);
+
+            ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            /// Todavia no implementado
+            UsuarioViewModel temporalUsuario = null; 
+
+            if (HttpContext.Session.Get<UsuarioViewModel>("UsuarioIngreso") == null)
+            {
+                temporalUsuario = new UsuarioViewModel();
+            }
+            temporalUsuario = usuarioViewModel;
+            HttpContext.Session.Set<UsuarioViewModel>("UsuarioIngreso", temporalUsuario);
+
+
+
+            ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+            return View(usuarioInView);
         }
+
+
 
 
 		[HttpPost]
