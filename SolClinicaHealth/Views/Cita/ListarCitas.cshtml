@@ -4,7 +4,7 @@
 }
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light  mb-5">
-    <a class="navbar-brand" href="#"><img src="../images/Logo.png" style="width: 130px" /></a>
+    <a class="navbar-brand" href="#"><img src="../images/logoangelashealth.png" style="width: 130px" /></a>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
@@ -27,52 +27,52 @@
 </nav>
 
 <h1>Historial de Citas</h1>
+@for (int i = Model.Count - 1; i >= 0; i--)
+{
 
- @foreach (var cita in Model)
-    {
     <div class="row mt-5">
-   
-        
-            <div class="col-12">
-                <div class="row" style="border:1px solid black">
-                    <div class="col-4 m-3">
-                        <h4>Cita Médica</h4>
-                    </div>
-                    <div class="col-3 m-3" >
-                        <h5>Estado: @cita.EstadoCita</h5>
-                    </div>
-                    <div class="col-3 m-3">
-                        <h5>Fecha de Cita: @cita.FechaCita.Substring(0, 8)</h5>
-                    </div>
+
+
+        <div class="col-12">
+            <div class="row" style="border:1px solid black">
+                <div class="col-4 m-3">
+                    <h4>Cita Médica</h4>
                 </div>
-
-                <div class="row pt-2 pb-2" style="border:1px solid black">
-
-                    <div class="col-9">
-                        <p>Hora Programada: @cita.HoraCita</p>
-                        <p>Doctor: @cita.idDoctor</p>
-                        <p>Especialidad: @cita.idEspecialidad</p>
-                    </div>
-
-                    <div class="col-3">
-                       
-                        <div class="row">
-                            <a asp-action="PagarCita" asp-controller="Cita" asp-route-id="@cita.IdCita" class="btn btn-primary m-1" style="width:200px">Pagar Cita</a>
-                        </div>
-                        <div class="row">
-                            <a asp-action="AplazarCita" asp-controller="Cita" asp-route-id="@cita.IdCita" class="btn btn-primary m-1" style="width:200px">Aplazar Cita</a>
-                        </div>
-                        <div class="row">
-                            <a asp-action="CancelarCita" asp-controller="Cita" asp-route-id="@cita.IdCita" class="btn btn-primary m-1" style="width:200px">Cancelar Cita</a>
-                        </div>
-                        <div class="row">
-                            <a asp-action="ValorarCita" asp-controller="Cita" asp-route-id="@cita.IdCita" class="btn btn-primary m-1" style="width:200px">Valorar Cita</a>
-                        </div>
-                       
-                    </div>
-
+                <div class="col-3 m-3">
+                    <h5>Estado: @Model[i].EstadoCita</h5>
+                </div>
+                <div class="col-3 m-3">
+                    <h5>Fecha de Cita: @Model[i].FechaCita.Substring(0, 8)</h5>
                 </div>
             </div>
-</div>
+
+            <div class="row pt-2 pb-2" style="border:1px solid black">
+
+                <div class="col-9">
+                    <p>Hora Programada: @Model[i].HoraCita</p>
+                    <p>Doctor: @Model[i].idDoctor</p>
+                    <p>Especialidad: @Model[i].idEspecialidad</p>
+                </div>
+
+                <div class="col-3">
+
+                    <div class="row">
+                        <a asp-action="PagarCita" asp-controller="Cita" asp-route-id="@Model[i].IdCita" class="btn btn-primary m-1" style="width:200px">Pagar Cita</a>
+                    </div>
+                    <div class="row">
+                        <a asp-action="AplazarCita" asp-controller="Cita" asp-route-id="@Model[i].IdCita" class="btn btn-primary m-1" style="width:200px">Aplazar Cita</a>
+                    </div>
+                    <div class="row">
+                        <a asp-action="CancelarCita" asp-controller="Cita" asp-route-id="@Model[i].IdCita" class="btn btn-primary m-1" style="width:200px">Cancelar Cita</a>
+                    </div>
+                    <div class="row">
+                        <a asp-action="ValorarCita" asp-controller="Cita" asp-route-id="@Model[i].IdCita" class="btn btn-primary m-1" style="width:200px">Valorar Cita</a>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
 
 }

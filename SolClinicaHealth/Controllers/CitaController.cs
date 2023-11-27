@@ -102,8 +102,63 @@ namespace SolClinicaHealth.Controllers
         public IActionResult PagarCita(int id)
         {
             var cita = _context.Cita.Where(c => c.IdCita.ToString() == id.ToString()).ToList();
-           
-            return View();
+            var citaPagoModel = new CitaPagoViewModel();
+
+            var datos = (from citaN in _context.Cita
+                         join doctorN in _context.Doctor on citaN.Doctor.IdDoctor equals doctorN.IdDoctor
+                         join userN in _context.Usuario on citaN.Usuario.IdUsuario equals userN.IdUsuario
+                         where citaN.IdCita.ToString() == id.ToString()
+                         select new{
+                             nombrePaciente = userN.NombreUsuario + userN.ApellidoUsuario,
+                             documentoPaciente = userN.NroDocumentoUsuario,
+                             especialidad = citaN.Especialidad.NombreEspecialidad,
+                             fecha = citaN.FechaCita.ToString(),
+                             hora = citaN.HoraCita.ToString(),
+                             costo = citaN.Especialidad.PrecioConsultaEspecialidad.ToString()
+                         }
+                          ).FirstOrDefault();
+
+
+            citaPagoModel.IdCita = id.ToString();
+            citaPagoModel.Paciente = datos.nombrePaciente;
+            citaPagoModel.DocumentoPaciente = datos.documentoPaciente;
+            citaPagoModel.Especialidad = datos.especialidad;
+            citaPagoModel.Fecha = datos.fecha;
+            citaPagoModel.Hora = datos.hora;
+            citaPagoModel.Costo = datos.costo;
+
+
+            return View(citaPagoModel);
+        }
+
+
+        [HttpPost]
+        public IActionResult SavePago(CitaPagoViewModel citaPagoViewModel)
+        {
+            var CDP = _context.CDP.Add(new CDPEntity()
+            {
+                Cita = _context.Cita.Where(c => c.IdCita.ToString() == citaPagoViewModel.IdCita.ToString()).SingleOrDefault(),
+                PrecioCita = (Double)citaPagoViewModel.PrecioCita,
+                EstadoCDP = citaPagoViewModel.EstadoCDP,
+                NroTarjeta = citaPagoViewModel.NroTarjeta,
+                TipoCDP = citaPagoViewModel.TipoCDP,
+                NroFactura = citaPagoViewModel.NroFactura
+            });
+
+            var CITA = _context.Cita.FirstOrDefault(c => c.IdCita.ToString() == citaPagoViewModel.IdCita.ToString());
+            CITA.EstadoCita = "Pagado";
+
+            var idUser = (from cita in _context.Cita
+                          join user in _context.Usuario
+                          on cita.Usuario.IdUsuario equals user.IdUsuario
+                          where cita.IdCita.ToString() == citaPagoViewModel.IdCita.ToString()
+                          select user.IdUsuario).FirstOrDefault();
+
+            var model = _context.Usuario.Where(c => c.IdUsuario.ToString() == idUser.ToString()).SingleOrDefault();
+            var usuarioInView = _mapper.Map<UsuarioViewModel>(model);
+
+            _context.SaveChanges();
+            return RedirectToAction("ListarCitas", usuarioInView);
         }
 
         public IActionResult AplazarCita(int id)
